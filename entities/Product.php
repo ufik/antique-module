@@ -35,7 +35,7 @@ class Product extends \AdminModule\Seo {
     private $slug;
 
     /**
-     * @orm\OneToOne(targetEntity="Author", mappedBy="product")
+     * @orm\ManyToOne(targetEntity="Author", mappedBy="products")
      */
     private $author;
 

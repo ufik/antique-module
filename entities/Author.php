@@ -28,6 +28,11 @@ class Author extends \AdminModule\Seo {
      */
     private $slug;
     
+    /**
+     * @orm\OneToMany(targetEntity="Product", mappedBy="author")
+     */
+    private $products;
+    
     public function getName() {
 	return $this->name;
     }
