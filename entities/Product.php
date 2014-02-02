@@ -24,7 +24,7 @@ class Product extends \AdminModule\Seo {
     private $description;
 
     /**
-     * @orm\Column
+     * @orm\Column(nullable=true)
      */
     private $material;
 
@@ -35,8 +35,9 @@ class Product extends \AdminModule\Seo {
     private $slug;
 
     /**
-     * @orm\ManyToOne(targetEntity="Author", mappedBy="products")
-     */
+    * @orm\ManyToOne(targetEntity="Author")
+    * @orm\JoinColumn(name="author_id", referencedColumnName="id", onDelete="CASCADE")
+    */
     private $author;
 
     /**
@@ -46,6 +47,7 @@ class Product extends \AdminModule\Seo {
 
     /**
      * @orm\ManyToMany(targetEntity="Category", inversedBy="products", cascade={"persist"})
+     * @orm\JoinTable(name="antiqueProductCategory")
      * @orm\JoinColumn(name="category_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $categories;
@@ -71,6 +73,21 @@ class Product extends \AdminModule\Seo {
      */
     private $hide;
 
+    /**
+     * @orm\Column(type="datetime")
+     */
+    private $created;
+    
+    /**
+     * @orm\Column(type="datetime")
+     */
+    private $sold;
+    
+    /**
+     * @orm\Column
+     */
+    private $state;
+    
     private $priceWithVat;
     private $link;
 

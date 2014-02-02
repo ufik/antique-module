@@ -56,4 +56,16 @@ class Author extends \AdminModule\Seo {
     public function setSlug($slug) {
 	$this->slug = $slug;
     }
+    
+    public function getProducts() {
+	return $this->products;
+    }
+
+    public function setProducts($products) {
+	$this->products = $products;
+    }
+    
+    public function hasProducts(){
+	return count($this->products) > 0;
+    }
 }    

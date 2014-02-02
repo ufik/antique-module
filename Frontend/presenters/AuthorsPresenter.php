@@ -11,17 +11,22 @@
 
 	private $antiqueSession;
 
+	private $authors;
+	
 	protected function startup() {
 	    parent::startup();
 
 	}
 
 	public function actionDefault($id) {
-	  
+	    $this->authors = $this->em->getRepository('WebCMS\AntiqueModule\Doctrine\Author')->findBy(array(), array(
+		'name' => 'ASC'
+	    ));
 	}
 
 	public function renderDefault($id) {
-
+	    
+	    $this->template->authors = $this->authors;
 	    $this->template->id = $id;
 	}
     }

@@ -39,7 +39,7 @@
 	);
 
 	public function __construct() {
-	    
+	    $this->addBox('Category list', 'Categories', 'listBox', 'Antique');
 	}
 
     }

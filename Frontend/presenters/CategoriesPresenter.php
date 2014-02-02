@@ -38,7 +38,7 @@ class CategoriesPresenter extends BasePresenter{
 			if(count($category) > 0){ 
 				$title = $category[0]->getTitle();
 				$category = $category[0];
-				$categories = $this->getStructure($this, $category, $this->repository, TRUE, 'nav navbar-nav', FALSE, FALSE, $this->actualPage);
+				$categories = $this->getStructure($this, $category, $this->repository, TRUE, 'nav navbar-nav', FALSE, FALSE, $this->actualPage, '', 'Antique');
 			}else{
 				$category = NULL;
 				$title = '';
@@ -46,6 +46,7 @@ class CategoriesPresenter extends BasePresenter{
 			}
 		// otherwise try to find category or product by parameters and show it
 		}else{
+			
 			$lastParam = $parameters[count($parameters) - 1];
 			
 			// check whether is this product
@@ -58,28 +59,19 @@ class CategoriesPresenter extends BasePresenter{
 				$product = $product[0];
 			}
 			
-			// variants
-			$idVariant = $this->getParameter('variant');
-			if($idVariant){
-				$variant = $this->productRepository->find($idVariant);
-				
-				$this->em->detach($product);
-				
-				$product->setPrice($variant->getPrice());
-				$product->setStore($variant->getStore());
+			if(count($parameters) > 0){
+			    // define category
+			    $lastParam = $parameters[count($parameters) - 1];
 			}
-			
-			// define category
-			$lastParam = $parameters[count($parameters) - 1];
 			
 			$category = $this->repository->findBy(array(
 				'slug' => $lastParam
 			));
-			
+
 			$category = $category[0];
-			
+
 			$title = $category->getTitle();
-			
+
 			foreach($parameters as $p){
 				$item = $this->repository->findBy(array(
 					'slug' => $p
@@ -88,7 +80,7 @@ class CategoriesPresenter extends BasePresenter{
 			}
 			
 			// and finally add product to breadcrumbs
-			if($product){
+			if($product && count($parameters) > 0){
 				// set product url
 				$product->setLink(
 					$this->link(':Frontend:Antique:Categories:default', array(
@@ -105,6 +97,7 @@ class CategoriesPresenter extends BasePresenter{
 				
 				$this->addBreadcrumbsItem($category, $product);
 			}else{
+				$product = null;
 				// category
 				// seo settings
 				$this->actualPage->setMetaTitle($category->getMetaTitle());
@@ -115,7 +108,7 @@ class CategoriesPresenter extends BasePresenter{
 			// check for products
 			$products = $category->getProducts();
 			
-			$categories = $this->getStructure($this, $category, $this->repository, TRUE, 'nav navbar-nav', FALSE, FALSE, $this->actualPage);
+			$categories = $this->getStructure($this, $category, $this->repository, TRUE, 'nav navbar-nav', FALSE, FALSE, $this->actualPage, '', 'Antique');
 			
 		}
 		
@@ -177,6 +170,6 @@ class CategoriesPresenter extends BasePresenter{
 				'title' => 'Main'
 			));
 		
-		return $this->getStructure($context, $category, $repository, FALSE, 'nav navbar-nav', TRUE, FALSE, $fromPage);
+		return $this->getStructure($context, $category, $repository, FALSE, 'submenu clr', TRUE, FALSE, $fromPage, '', 'Antique');
 	}
 }
