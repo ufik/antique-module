@@ -198,6 +198,9 @@ use Nette\Application\UI;
 		$authors[$author->getId()] = $author->getName();
 	    }
 	    
+	    $grid->addColumnText('photo', 'Picture')->setCustomRender(function($item){
+		return "<img style='width: 60px;' src='". $this->context->httpRequest->url->basePath . \WebCMS\SystemHelper::thumbnail($item->getMainPhoto()->getPath(), 'system')."' />";
+	    });
 	    $grid->addColumnText('title', 'Name')->setSortable()->setFilterText();
 	    $grid->addColumnNumber('price', 'Price')->setCustomRender(function($item) {
 		return \WebCMS\PriceFormatter::format($item->getPrice());

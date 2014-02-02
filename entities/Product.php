@@ -225,5 +225,28 @@ class Product extends \AdminModule\Seo {
     public function setAuthor($author) {
 	$this->author = $author;
     }
+    
+    public function getCreated() {
+	return $this->created;
+    }
 
+    public function getSold() {
+	return $this->sold;
+    }
+
+    public function getState() {
+	return $this->state;
+    }
+
+    public function setCreated($created) {
+	$this->created = $created;
+    }
+
+    public function setSold($sold) {
+	$this->sold = $sold;
+    }
+
+    public function setState($state) {
+	$this->state = $state;
+    }
 }
