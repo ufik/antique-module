@@ -3,6 +3,7 @@
 namespace WebCMS\AntiqueModule\Doctrine;
 
 use Doctrine\orm\Mapping as orm;
+use Gedmo\Mapping\Annotation as gedmo;
 
 /**
  * @orm\Entity
