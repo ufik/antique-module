@@ -122,14 +122,7 @@ class CategoriesPresenter extends BasePresenter{
 			
 			$products = $query->getResult();
 			
-			$paginator = new \Nette\Utils\Paginator;
-			$paginator->setItemCount(count($category->getProducts()));
-			$paginator->setItemsPerPage($ppp);
-			$paginator->setPage($cp);
-			
 			$categories = $this->getStructure($this, $category, $this->repository, TRUE, 'nav navbar-nav', FALSE, FALSE, $this->actualPage, '', 'Antique');
-			
-			$this->template->paginator = $paginator;			
 		}
 		
 		// it is here, because of breadcrumbs
@@ -145,6 +138,11 @@ class CategoriesPresenter extends BasePresenter{
 			);
 		}
 		
+		$paginator = new \Nette\Utils\Paginator;
+		$paginator->setItemCount(count($category->getProducts()));
+		$paginator->setItemsPerPage($ppp);
+		$paginator->setPage($cp);
+		$this->template->paginator = $paginator;			
 		$this->template->product = $product;
 		$this->template->category = $category;
 		$this->template->page = $this->actualPage;
