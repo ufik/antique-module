@@ -25,6 +25,9 @@ class CategoriesPresenter extends BasePresenter{
 		
 		$parameters = $this->getParameter('parameters');
 		
+		$ppp = $this->settings->get('Products per page', 'antiqueModule', 'text')->getValue();
+		$cp = $this->getParameter('p');
+		
 		$product = NULL;
 		$products = array();
 		// if there are no parameters, show all categories
@@ -106,10 +109,27 @@ class CategoriesPresenter extends BasePresenter{
 			}
 			
 			// check for products
-			$products = $category->getProducts();
+			$qb = $this->em->createQueryBuilder();
+			
+			$query = $qb->select('p')
+			    ->from('WebCMS\AntiqueModule\Doctrine\Product', 'p')
+			    ->leftjoin('p.categories', 'c')
+			    ->andWhere('c.id = :categoryId')
+			    ->setParameter('categoryId', $category->getId())
+			    ->setMaxResults($ppp)
+			    ->setFirstResult($ppp * $cp)
+			    ->getQuery();
+			
+			$products = $query->getResult();
+			
+			$paginator = new \Nette\Utils\Paginator;
+			$paginator->setItemCount(count($category->getProducts()));
+			$paginator->setItemsPerPage($ppp);
+			$paginator->setPage($cp);
 			
 			$categories = $this->getStructure($this, $category, $this->repository, TRUE, 'nav navbar-nav', FALSE, FALSE, $this->actualPage, '', 'Antique');
 			
+			$this->template->paginator = $paginator;			
 		}
 		
 		// it is here, because of breadcrumbs

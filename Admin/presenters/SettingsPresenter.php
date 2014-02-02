@@ -24,6 +24,7 @@
 
 	    $settings = array();
 	    
+	    $settings[] = $this->settings->get('Products per page', 'antiqueModule', 'text');
 	    $settings[] = $this->settings->get('Order email subject', 'antiqueModule', 'text', array());
 	    $settings[] = $this->settings->get('Order email', 'antiqueModule', 'textarea', array());
 
