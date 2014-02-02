@@ -1,0 +1,17 @@
+{block content}
+	
+	{include ../tabs.latte active => 'categories'}
+
+	<h1>{_'Antique categories'}</h1>
+	
+	<a class="btn btn-primary ajax" n:href="Categories:updateCategory idPage => $idPage">{_'Add category'}</a>
+
+	<br /><br />
+
+	<div class="tab-content">
+		<div class="tab-pane active">
+			{control categoriesGrid}
+		</div>
+	</div>
+	
+{/block}

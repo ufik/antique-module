@@ -1,0 +1,119 @@
+{block content}
+
+	{include ../tabs.latte active => 'products'}
+
+	<h1>{_'Product definition'}</h1>
+	{form productForm}
+	<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          {_'Basic settings'}
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse{if $panel == 'basic'} in{/if}">
+      <div class="panel-body">
+        {control productForm}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          {_'Thumbnails definition'}
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+      <div class="panel-body">
+        
+		  <a n:href=":Admin:Filesystem:default dialog => true, multiple => true" data-container="#pictures" class="btn btn-primary ajax filesDialog" data-remote="false" data-target="#myModal" data-toggle="modal">{_'Load files'}</a>
+	
+			<br /><br />
+		  
+		  <div class="well row" id="pictures">
+			{foreach $photos as $photo}
+				<div class="col-md-3 jq_fileBox">
+					<div class="img-thumbnail">
+						<img src="{$basePath}{$photo->getPath()|thumbnail:'system'}" />
+						<input type="hidden" name="files[]" value="{$photo->getPath()}" />
+						<input class="form-control" type="text" name="fileNames[]" value="{$photo->getTitle()}" />
+						<input class="form-control" type="radio" name="fileDefault[]" value="{$iterator->counter}" {if $photo->getDefault()}checked{/if} />
+						<span class="btn btn-default jq_fileDelete">&times</span>
+					</div>
+				</div>
+			{/foreach}
+		</div>
+		
+		{input save}
+		
+      </div>
+
+		
+      </div>
+    </div>
+	{if $product->getId()}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+			  <h4 class="panel-title">
+				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+				  {_'Product variant'}
+				</a>
+			  </h4>
+			</div>
+			<div id="collapseThree" class="panel-collapse collapse{if $panel == 'variants'} in{/if}">
+			  <div class="panel-body">
+
+				  <a class="btn btn-primary ajax" n:href="Products:updateVariant idPage => $idPage, idProduct => $product->getId()" data-remote="false" data-target="#myModal" data-toggle="modal">{_'Add variant'}</a>
+
+					<br /><br />
+
+				  {control productsVariantGrid}
+
+			  </div>
+
+
+			  </div>
+		</div>
+	    <div class="panel panel-default">
+			<div class="panel-heading">
+			  <h4 class="panel-title">
+				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+				  {_'Product parameters'}
+				</a>
+			  </h4>
+			</div>
+			<div id="collapseFour" class="panel-collapse collapse{if $panel == 'parameters'} in{/if}">
+			  <div class="panel-body">
+
+				  <a class="btn btn-primary ajax" n:href="updateParameter idPage => $idPage, idProduct => $product->getId()" data-remote="false" data-target="#myModal" data-toggle="modal">{_'Add parameter'}</a>
+
+					<br /><br />
+
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>{_'Name'}</th>
+								<th>{_'Value'}</th>
+							</tr>
+						</thead>
+						{foreach $product->getParametersArray() as $parameter}
+							<tr>
+								<td>{$parameter[0]->getParameter()->getName()}</td>
+								<td>{foreach $parameter as $p}{$p->getValue()}{if !$iterator->isLast()}, {/if}{/foreach}</td>
+							</tr>
+						{/foreach}
+				  </table>
+			  </div>
+
+			  </div>
+		</div>
+	{/if}
+  </div>
+</div>
+	{/form}
+	
+{/block}
