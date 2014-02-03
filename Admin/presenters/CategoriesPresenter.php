@@ -130,6 +130,7 @@ use Nette\Application\UI;
 		'level > 0'
 		)
 	    );
+	    $grid->setRememberState(true);
 
 	    $grid->addColumnText('title', 'Name')->setCustomRender(function($item) {
 		return str_repeat("-", $item->getLevel()) . $item->getTitle();

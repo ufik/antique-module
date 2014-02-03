@@ -62,7 +62,7 @@ use Nette\Application\UI;
 	    $form->addText('metaTitle', 'SEO title')->setAttribute('class', 'form-control');
 	    $form->addText('metaDescription', 'SEO description')->setAttribute('class', 'form-control');
 	    $form->addText('metaKeywords', 'SEO keywords')->setAttribute('class', 'form-control');
-	    $form->addCheckbox('hide', 'Hide')->setAttribute('class', 'form-control');
+	    $form->addCheckbox('hide', 'Hide');
 	    $form->addText('price', 'Price')->setAttribute('class', 'form-control');
 	    $form->addText('vat', 'Vat')->setAttribute('class', 'form-control');
 	    $form->addSelect('author', 'Author')->setTranslator(NULL)->setItems($authors)->setAttribute('class', 'form-control');
@@ -199,8 +199,11 @@ use Nette\Application\UI;
 	    }
 	    
 	    $grid->addColumnText('photo', 'Picture')->setCustomRender(function($item){
-		return "<img style='width: 60px;' src='". $this->context->httpRequest->url->basePath . \WebCMS\SystemHelper::thumbnail($item->getMainPhoto()->getPath(), 'system')."' />";
+		return "<img style='height: 40px;' src='". $this->context->httpRequest->url->basePath . \WebCMS\SystemHelper::thumbnail($item->getMainPhoto()->getPath(), 'system')."' />";
 	    });
+	    $grid->addColumnNumber('id', 'ID')->setSortable()->setCustomRender(function($item){
+		return $item->getId();
+	    })->setFilterNumber();
 	    $grid->addColumnText('title', 'Name')->setSortable()->setFilterText();
 	    $grid->addColumnNumber('price', 'Price')->setCustomRender(function($item) {
 		return \WebCMS\PriceFormatter::format($item->getPrice());
