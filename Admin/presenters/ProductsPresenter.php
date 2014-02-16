@@ -199,7 +199,7 @@ use Nette\Application\UI;
 	    }
 	    
 	    $grid->addColumnText('photo', 'Picture')->setCustomRender(function($item){
-		return "<img style='height: 40px;' src='". $this->context->httpRequest->url->basePath . \WebCMS\SystemHelper::thumbnail($item->getMainPhoto()->getPath(), 'system')."' />";
+		return "<img style='height: 40px;' src='". $this->context->httpRequest->url->basePath . \WebCMS\Helpers\SystemHelper::thumbnail($item->getMainPhoto()->getPath(), 'system')."' />";
 	    });
 	    $grid->addColumnNumber('id', 'ID')->setSortable()->setCustomRender(function($item){
 		return $item->getId();

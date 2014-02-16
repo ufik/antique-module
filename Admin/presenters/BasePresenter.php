@@ -50,7 +50,7 @@
 	    
 	    if($this->settings->get('Save zbozi.cz XML file after product update', 'antiqueModule', 'checkbox')->getValue() || $force){
 		$template = $this->createTemplate();
-		$template->registerHelperLoader('\WebCMS\SystemHelper::loader');
+		$template->registerHelperLoader('\WebCMS\Helpers\SystemHelper::loader');
 		$template->setFile('../app/templates/antique-module/exports/zbozicz.latte');
 		$template->products = $products;
 		$template->save('./upload/exports/export-zbozicz-' . $this->state->language->getAbbr() . '.xml');
@@ -58,7 +58,7 @@
 	    
 	    if($this->settings->get('Save heureka.cz XML file after product update', 'antiqueModule', 'checkbox')->getValue() || $force){
 		$template = $this->createTemplate();
-		$template->registerHelperLoader('\WebCMS\SystemHelper::loader');
+		$template->registerHelperLoader('\WebCMS\Helpers\SystemHelper::loader');
 		$template->setFile('../app/templates/antique-module/exports/heureka.latte');
 		$template->products = $products;
 		$template->save('./upload/exports/export-heureka-' . $this->state->language->getAbbr() . '.xml');
