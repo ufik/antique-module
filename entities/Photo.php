@@ -32,6 +32,11 @@ class Photo extends \AdminModule\Doctrine\Entity {
 	 */
 	private $default;
 	
+	/**
+	 * @orm\Column(type="smallint")
+	 */
+	private $order;
+	
 	public function getPath() {
 		return $this->path;
 	}
@@ -62,5 +67,13 @@ class Photo extends \AdminModule\Doctrine\Entity {
 
 	public function setDefault($default) {
 		$this->default = $default;
+	}
+	
+	public function getOrder() {
+		return $this->order;
+	}
+
+	public function setOrder($order) {
+		$this->order = $order;
 	}
 }
