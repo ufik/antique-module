@@ -10,7 +10,7 @@ use Doctrine\orm\Mapping as orm;
  * @orm\Table(name="antiquePhoto")
  * @author Tomáš Voslař <tomas.voslar at webcook.cz>
  */
-class Photo extends \AdminModule\Doctrine\Entity {
+class Photo extends \WebCMS\Entity\Entity {
 	/**
 	 * @orm\Column
 	 */
@@ -33,7 +33,7 @@ class Photo extends \AdminModule\Doctrine\Entity {
 	private $default;
 	
 	/**
-	 * @orm\Column(type="smallint")
+	 * @orm\Column(name="`order`", type="smallint")
 	 */
 	private $order;
 	

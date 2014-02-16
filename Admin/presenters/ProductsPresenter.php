@@ -58,12 +58,14 @@ use Nette\Application\UI;
 	    
 	    $form = $this->createForm();
 	    $form->addText('title', 'Name')->setAttribute('class', 'form-control')->setRequired('Please fill in a name.');
+	    $form->addText('material', 'Material')->setAttribute('class', 'form-control');
 	    $form->addText('slug', 'SEO adresa url')->setAttribute('class', 'form-control');
 	    $form->addText('metaTitle', 'SEO title')->setAttribute('class', 'form-control');
 	    $form->addText('metaDescription', 'SEO description')->setAttribute('class', 'form-control');
 	    $form->addText('metaKeywords', 'SEO keywords')->setAttribute('class', 'form-control');
 	    $form->addCheckbox('hide', 'Hide');
 	    $form->addText('price', 'Price')->setAttribute('class', 'form-control');
+	    $form->addText('priceDiscount', 'Price discount')->setAttribute('class', 'form-control');
 	    $form->addText('vat', 'Vat')->setAttribute('class', 'form-control');
 	    $form->addSelect('author', 'Author')->setTranslator(NULL)->setItems($authors)->setAttribute('class', 'form-control');
 	    $form->addMultiSelect('categories', 'Categories')->setTranslator(NULL)->setItems($hierarchy)->setAttribute('class', 'form-control');
@@ -108,8 +110,10 @@ use Nette\Application\UI;
 	    $this->product->setMetaKeywords($values->metaKeywords);
 	    $this->product->setLanguage($this->state->language);
 	    $this->product->setHide($values->hide);
+	    $this->product->setMaterial($values->material);
 	    $this->product->setAuthor($author);
 	    
+	    $this->product->setPriceDiscount($values->priceDiscount);
 	    $this->product->setPrice($values->price);
 	    $this->product->setVat($values->vat);
 	    $this->product->setDescription($values->description);
@@ -155,7 +159,8 @@ use Nette\Application\UI;
 
 		    $photo->setPath($path);
 		    $photo->setProduct($this->product);
-
+		    $photo->setOrder(1);
+		    
 		    $this->em->persist($photo);
 
 		    $counter++;
@@ -206,7 +211,7 @@ use Nette\Application\UI;
 	    })->setFilterNumber();
 	    $grid->addColumnText('title', 'Name')->setSortable()->setFilterText();
 	    $grid->addColumnNumber('price', 'Price')->setCustomRender(function($item) {
-		return \WebCMS\PriceFormatter::format($item->getPrice());
+		return \WebCMS\helpers\PriceFormatter::format($item->getPrice());
 	    })->setSortable()->setFilterNumber();
 	    $grid->addColumnText('author', 'Author')->setCustomRender(function($item){
 		return $item->getAuthor() ? $item->getAuthor()->getName() : 'unknown';

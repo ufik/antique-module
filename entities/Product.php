@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as gedmo;
  * @orm\Table(name="antiqueProduct")
  * @author Tomáš Voslař <tomas.voslar at webcook.cz>
  */
-class Product extends \AdminModule\Seo {
+class Product extends \WebCMS\Entity\Seo {
 
     /**
      * @orm\Column(length=64)
@@ -53,7 +53,7 @@ class Product extends \AdminModule\Seo {
     private $categories;
 
     /**
-     * @orm\ManyToOne(targetEntity="\AdminModule\Language")
+     * @orm\ManyToOne(targetEntity="WebCMS\Entity\Language")
      * @orm\JoinColumn(name="language_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $language;
@@ -62,6 +62,11 @@ class Product extends \AdminModule\Seo {
      * @orm\Column(type="decimal", precision=12, scale=4, nullable=true)
      */
     private $price;
+    
+    /**
+     * @orm\Column(type="decimal", precision=12, scale=4, nullable=true)
+     */
+    private $priceDiscount;
 
     /**
      * @orm\Column(type="integer", nullable=true)
@@ -248,5 +253,13 @@ class Product extends \AdminModule\Seo {
 
     public function setState($state) {
 	$this->state = $state;
+    }
+    
+    public function getPriceDiscount() {
+	return $this->priceDiscount;
+    }
+
+    public function setPriceDiscount($priceDiscount) {
+	$this->priceDiscount = $priceDiscount;
     }
 }

@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as gedmo;
  * @orm\Table(name="antiqueAuthor")
  * @author Tomáš Voslař <tomas.voslar@webcook.cz>
  */
-class Author extends \AdminModule\Seo {
+class Author extends \WebCMS\Entity\Seo {
     
     /**
      * @orm\Column

@@ -36,7 +36,7 @@
 		mkdir('./upload/exports');
 	    }
 
-	    $catPage = $this->em->getRepository('\AdminModule\Page')->findOneBy(array(
+	    $catPage = $this->em->getRepository('\WebCMS\Entity\Page')->findOneBy(array(
 		'language' => $this->state->language,
 		'moduleName' => 'Antique',
 		'presenter' => 'Categories'

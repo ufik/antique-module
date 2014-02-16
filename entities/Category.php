@@ -1,6 +1,6 @@
 <?php
 
-    namespace WebCMS\AntiqueModule\Doctrine;
+namespace WebCMS\AntiqueModule\Doctrine;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as gedmo;
@@ -13,7 +13,7 @@ use Doctrine\orm\Mapping as orm;
      * @orm\Table(name="antiqueCategory")
      * @author Tomáš Voslař <tomas.voslar at webcook.cz>
      */
-    class Category extends \AdminModule\Seo {
+    class Category extends \WebCMS\Entity\Seo {
 
 	/**
 	 * @orm\Column(length=64)
@@ -85,7 +85,7 @@ use Doctrine\orm\Mapping as orm;
 	private $updated;
 
 	/**
-	 * @orm\ManyToOne(targetEntity="\AdminModule\Language")
+	 * @orm\ManyToOne(targetEntity="WebCMS\Entity\Language")
 	 * @orm\JoinColumn(name="language_id", referencedColumnName="id", onDelete="CASCADE")
 	 */
 	private $language;
